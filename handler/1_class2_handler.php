@@ -20,6 +20,9 @@
 
         if($full_name==''||$email==''||$pnumber==''||$gender==''){
             $response = ['msg'=> "Please fillout values correctly", "success"=>false];
+               header("location:../1_class2.php?success=0");
+               return;
+
         }
 
         $query = "INSERT INTO `signup_subs` (`full_name`, `email`, `pnumber`, `gender`,`created_at`) VALUES ('$full_name', '$email', '$pnumber', '$gender','$created_at')";
