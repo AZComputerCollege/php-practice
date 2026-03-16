@@ -125,6 +125,8 @@ include "./handler/connection.php";
                     <th scope="col">Phone</th>
                     <th scope="col">Gender</th>
                     <th scope="col">Created At</th>
+                    <th scope="col">Actions</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -132,7 +134,7 @@ include "./handler/connection.php";
                 // $query = "SELECT `full_name`,`email` FROM `signup_subs`";
                 // $query = "SELECT * FROM `signup_subs` WHERE `created_at`>'2026-03-13 00:00:00' AND  `created_at`<'2026-03-13 23:59:00'";
         
-                $query = "SELECT * FROM `signup_subs`";
+                $query = "SELECT * FROM `signup_subs` ORDER BY id ASC";
                 
                 if(isset($_GET['fullName'])){
 
@@ -156,6 +158,9 @@ include "./handler/connection.php";
                     <td><?php echo $row['pnumber']??'' ?></td>
                     <td><?php echo $row['gender']??'' ?></td>
                     <td><?php echo $row['created_at']??'' ?></td>
+                    <td>
+                        <!-- <button></button> -->
+                    </td>
                 </tr>
                 <?php
                 }
