@@ -7,7 +7,7 @@
 
           let params = new URLSearchParams(window.location.search);
 
-          let success = params.get("success");
+          let success = params.get("success") || params.get("delete-success") ;
 
           if (success)
               window.location.assign("/1_CRUD/list.php");
