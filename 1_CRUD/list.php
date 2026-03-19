@@ -75,8 +75,6 @@ include "./partials/header.php";
 
             if ($count > 0) {
                 while ($row = mysqli_fetch_assoc($mysql)) {
-                    // echo "<pre>";
-                    // print_r($row);
             ?>
                     <tr>
                         <td><?php echo $row['id'] ?? '' ?></td>
