@@ -3,6 +3,7 @@ include "./handler/connection.php";
 include "./partials/header.php";
 ?>
 
+
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center">
         <h1>Students</h1>
