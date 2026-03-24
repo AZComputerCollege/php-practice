@@ -11,6 +11,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
 
     $record = mysqli_fetch_assoc($sql);
 
+
     // print_r($record);
 }
 
@@ -24,7 +25,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             <h3><?php echo isset($_GET['id']) ? "Update" : "Create" ?> Student</h3>
         </div>
         <div class="card-body">
-            <form action="<?php echo isset($_GET['id'])? "./handler/update.php?id=$id" : "./handler/add.php"  ?>" method="post">
+            <form action="<?php echo isset($_GET['id']) ? "./handler/update.php?id=$id" : "./handler/add.php"  ?>" method="post" >
                 <div class="form-group my-3">
                     <label for="">Name: </label>
                     <input type="text" class="form-control" name="full_name" value="<?php echo @$record['full_name'] ?>" id="">
@@ -43,7 +44,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 $checkValue = "male";
                 if (isset($record['gender']) && $record['gender'] == "female") {
                     $checkValue = "female";
-                }else if (isset($record['gender']) && $record['gender'] == "other"){
+                } else if (isset($record['gender']) && $record['gender'] == "other") {
                     $checkValue = "other";
                 }
                 ?>
@@ -51,24 +52,71 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 <div class="form-group my-3 ">
                     <label for="">Gender</label> <br>
                     <div class="form-check-inline">
-                        <input type="radio" name="gender" id="male" class="form-check-input" value="male" <?php echo $checkValue=="male"?"checked":"" ?>>
+                        <input type="radio" name="gender" id="male" class="form-check-input" value="male" <?php echo $checkValue == "male" ? "checked" : "" ?>>
                         <label class="form-check-label" for="male">Male</label>
                     </div>
 
                     <div class="form-check-inline">
-                        <input type="radio" name="gender" id="female" class="form-check-input" value="female" <?php echo $checkValue=="female"?"checked":"" ?>>
+                        <input type="radio" name="gender" id="female" class="form-check-input" value="female" <?php echo $checkValue == "female" ? "checked" : "" ?>>
                         <label class="form-check-label" for="female">Female</label>
                     </div>
 
                     <div class="form-check-inline">
-                        <input type="radio" name="gender" id="other" class="form-check-input" value="other" <?php echo $checkValue=="other"?"checked":"" ?>>
+                        <input type="radio" name="gender" id="other" class="form-check-input" value="other" <?php echo $checkValue == "other" ? "checked" : "" ?>>
                         <label class="form-check-label" for="other">Other</label>
                     </div>
                 </div>
 
+                <div class="my-3">
+                    <label for="">Profile Pic</label><br>
+                    <input type="file" name="profile_pic" class="form-control">
+                </div>
+
+                <div class="form-group my-3 ">
+                    <label for="">Subjects</label> <br>
+                    <div class="form-check-inline">
+                        <input type="checkbox" name="subject[]" id="english" class="form-check-input" value="english" <?php echo $checkValue == "english" ? "checked" : "" ?>>
+                        <label class="form-check-label" for="english">English</label>
+                    </div>
+
+                    <div class="form-check-inline">
+                        <input type="checkbox" name="subject[]" id="urdu" class="form-check-input" value="urdu" <?php echo $checkValue == "urdu" ? "checked" : "" ?>>
+                        <label class="form-check-label" for="urdu">Urdu</label>
+                    </div>
+
+                    <div class="form-check-inline">
+                        <input type="checkbox" name="subject[]" id="math" class="form-check-input" value="math" <?php echo $checkValue == "math" ? "checked" : "" ?>>
+                        <label class="form-check-label" for="math">Math</label>
+                    </div>
+                </div>
+
+                <?php
+                $query = "SELECT id,tname FROM `teachers`";
+                $sql = mysqli_query($conn, $query);
+                // $records = mysqli_fetch_all($sql);
+
+                // print_r($records);
+                ?>
+
+                <div class="my-3">
+                    <label for="">Teacher</label>
+                    <select name="teacher_id" class="form-select" id="">
+                        <?php
+                        while ($row = mysqli_fetch_assoc($sql)) {
+                        ?>
+
+                            <option value="<?php echo $row['id'] ?>"><?php echo $row['tname'] ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+
+
+
                 <div class="card-footer text-body-secondary d-flex justify-content-end gap-2">
                     <a href="./list.php" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary"><?php echo isset($_GET['id']) ? "Update" : "Submit" ?></button>
+                    <button type="submit" name="sub" class="btn btn-primary"><?php echo isset($_GET['id']) ? "Update" : "Submit" ?></button>
                 </div>
             </form>
 

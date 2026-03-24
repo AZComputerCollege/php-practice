@@ -4,14 +4,26 @@
 
     if(isset($_POST) && !empty($_POST)){
         echo "<pre>";
-        print_r($_POST);
+        // print_r($_POST);
+        print_r($_FILES);
         echo "</pre>";  
-
+die;
         $response = [];
         $full_name = $_POST['full_name']??'';
         $email = $_POST['email']??'';
         $pnumber = $_POST['pnumber']??'';
         $gender = $_POST['gender']??'';
+        $subject = implode(',',$_POST['subject']);
+        $teacher_id = mysqli_real_escape_string($conn, $_POST['teacher_id']);
+        // $pic = mysqli_real_escape_string($conn, $_POST['profile_pic']);
+        $pic = $_FILES['profile_pic']['name'];
+        
+
+        // move_uploaded_file()
+        print_r($pic);
+
+        // die;
+
 
         // print_r($gender);
 
