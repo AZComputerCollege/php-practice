@@ -25,7 +25,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             <h3><?php echo isset($_GET['id']) ? "Update" : "Create" ?> Student</h3>
         </div>
         <div class="card-body">
-            <form action="<?php echo isset($_GET['id']) ? "./handler/update.php?id=$id" : "./handler/add.php"  ?>" method="post" >
+            <form action="<?php echo isset($_GET['id']) ? "./handler/update.php?id=$id" : "./handler/add.php"  ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group my-3">
                     <label for="">Name: </label>
                     <input type="text" class="form-control" name="full_name" value="<?php echo @$record['full_name'] ?>" id="">
@@ -91,7 +91,7 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 </div>
 
                 <?php
-                $query = "SELECT id,tname FROM `teachers`";
+                $query = "SELECT id,tname FROM `teachers` WHERE is_active=1";
                 $sql = mysqli_query($conn, $query);
                 // $records = mysqli_fetch_all($sql);
 
