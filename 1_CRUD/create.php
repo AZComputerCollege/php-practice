@@ -2,17 +2,22 @@
 include "./handler/connection.php";
 include "./partials/header.php";
 
+
+// ======== Edit Data ===========
 if (isset($_GET['id']) && $_GET['id'] != "") {
     $id = $_GET['id'];
 
     // $query = "SELECT * FROM `signup_subs` WHERE `id` = '$id'";
 
-    $sql = mysqli_query($conn, "SELECT * FROM `signup_subs` WHERE `id` = '$id'");
+    // $sql = mysqli_query($conn, "SELECT * FROM signup_subs As s LEFT JOIN teachers As t ON s.teacher_id = t.id  WHERE s.id = $id");
+    $sql = mysqli_query($conn, "SELECT * FROM signup_subs WHERE id = $id");
 
-    $record = mysqli_fetch_assoc($sql);
+    $student = mysqli_fetch_assoc($sql);
 
 
-    // print_r($record);
+    // echo '<pre>';
+    // print_r($student);
+    // echo '</pre>';
 }
 
 ?>
@@ -28,23 +33,23 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
             <form action="<?php echo isset($_GET['id']) ? "./handler/update.php?id=$id" : "./handler/add.php"  ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group my-3">
                     <label for="">Name: </label>
-                    <input type="text" class="form-control" name="full_name" value="<?php echo @$record['full_name'] ?>" id="">
+                    <input type="text" class="form-control" name="full_name" value="<?php echo @$student['full_name'] ?>" id="">
                 </div>
                 <div class="form-group my-3">
                     <label for="">Email</label>
-                    <input type="email" class="form-control" name="email" id="" value="<?php echo @$record['email'] ?>">
+                    <input type="email" class="form-control" name="email" id="" value="<?php echo @$student['email'] ?>">
                 </div>
                 <div class="form-group my-3">
                     <label for="">Phone No.</label>
-                    <input type="tel" class="form-control" name="pnumber" id="" value="<?php echo @$record['pnumber'] ?>">
+                    <input type="tel" class="form-control" name="pnumber" id="" value="<?php echo @$student['pnumber'] ?>">
                 </div>
 
 
                 <?php
                 $checkValue = "male";
-                if (isset($record['gender']) && $record['gender'] == "female") {
+                if (isset($student['gender']) && $student['gender'] == "female") {
                     $checkValue = "female";
-                } else if (isset($record['gender']) && $record['gender'] == "other") {
+                } else if (isset($student['gender']) && $student['gender'] == "other") {
                     $checkValue = "other";
                 }
                 ?>
@@ -71,21 +76,38 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <label for="">Profile Pic</label><br>
                     <input type="file" name="profile_pic" class="form-control">
                 </div>
+                <?php
+                     if($_GET['id'] && $student['profile_pic']){
+                        ?>
+                    <div>
+                        <img src="./uploads/<?php echo $student['profile_pic'] ?>" alt="IMAGE" width="70">
+                    </div>
+
+                        <?php
+                     }
+                ?>
+
+
+                <?php
+                    if($student['subjects']){
+                        $subjects = explode(',',$student['subjects']);
+                    }
+                ?>
 
                 <div class="form-group my-3 ">
                     <label for="">Subjects</label> <br>
                     <div class="form-check-inline">
-                        <input type="checkbox" name="subject[]" id="english" class="form-check-input" value="english" <?php echo $checkValue == "english" ? "checked" : "" ?>>
+                        <input type="checkbox" name="subject[]" id="english" class="form-check-input" value="english" <?php echo (isset($subjects) && (in_array('english',$subjects))) ? "checked" : "" ?>>
                         <label class="form-check-label" for="english">English</label>
                     </div>
 
                     <div class="form-check-inline">
-                        <input type="checkbox" name="subject[]" id="urdu" class="form-check-input" value="urdu" <?php echo $checkValue == "urdu" ? "checked" : "" ?>>
+                        <input type="checkbox" name="subject[]" id="urdu" class="form-check-input" value="urdu" <?php echo  (isset($subjects) && (in_array('urdu',$subjects))) ? "checked" : "" ?>>
                         <label class="form-check-label" for="urdu">Urdu</label>
                     </div>
 
                     <div class="form-check-inline">
-                        <input type="checkbox" name="subject[]" id="math" class="form-check-input" value="math" <?php echo $checkValue == "math" ? "checked" : "" ?>>
+                        <input type="checkbox" name="subject[]" id="math" class="form-check-input" value="math" <?php echo  (isset($subjects) && (in_array('math',$subjects))) ? "checked" : "" ?>>
                         <label class="form-check-label" for="math">Math</label>
                     </div>
                 </div>
@@ -93,19 +115,21 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                 <?php
                 $query = "SELECT id,tname FROM `teachers` WHERE is_active=1";
                 $sql = mysqli_query($conn, $query);
-                // $records = mysqli_fetch_all($sql);
+                // $students = mysqli_fetch_all($sql);
 
-                // print_r($records);
+                // print_r($students);
                 ?>
 
                 <div class="my-3">
                     <label for="">Teacher</label>
                     <select name="teacher_id" class="form-select" id="">
                         <?php
-                        while ($row = mysqli_fetch_assoc($sql)) {
+                        while ($teacher = mysqli_fetch_assoc($sql)) {
+                            // print_r($teacher);
                         ?>
-
-                            <option value="<?php echo $row['id'] ?>"><?php echo $row['tname'] ?></option>
+                            <option value="<?php echo $teacher['id'] ?>"   <?php echo $student['teacher_id']==$teacher['id'] ?'Selected':''?>>
+                                <?php echo $teacher['tname'] ?>
+                            </option>
                         <?php
                         }
                         ?>

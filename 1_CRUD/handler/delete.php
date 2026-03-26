@@ -8,6 +8,13 @@
         // echo "</pre>";  
         $id = $_GET['id'];
 
+        $query = "SELECT profile_pic FROM signup_subs WHERE id = $id";
+        $sql = mysqli_query($conn, $query);
+        $record = mysqli_fetch_row($sql);
+        if(file_exists("../uploads/$record[0]")){
+            unlink("../uploads/$record[0]");
+        }
+    
         $query = "DELETE FROM `signup_subs` WHERE `id`='$id'";
 
         if(mysqli_query($conn, $query)){

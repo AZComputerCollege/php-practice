@@ -5,8 +5,8 @@
     if(isset($_POST) && !empty($_POST)){
         echo "<pre>";
         // print_r($_POST);
-        print_r($_FILES);
-        echo "</pre>";  
+        // print_r($_FILES);
+        // echo "</pre>";  
         $response = [];
         $full_name = $_POST['full_name']??'';
         $email = $_POST['email']??'';

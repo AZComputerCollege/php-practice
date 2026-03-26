@@ -13,9 +13,33 @@
         $pnumber = $_POST['pnumber']??'';
         $gender = $_POST['gender']??'';
         $id = $_GET['id'];
+        $subjects = implode(',',$_POST['subject']);
+        $teacher_id = mysqli_real_escape_string($conn, $_POST['teacher_id']);
+        $picName = $_FILES['profile_pic']['name'];
+        $query = "SELECT profile_pic FROM signup_subs WHERE id = $id";
+        $sql = mysqli_query($conn, $query);
+        $record = mysqli_fetch_row($sql);
+        $new_profile_pic = $record[0];
+
+        if($picName){
+            
+            $ext = strtolower(pathinfo($picName, PATHINFO_EXTENSION));
+
+            if(!in_array($ext, ['jpg', 'png','jpeg'])){
+                $response = ['msg'=> "Data Insertion failed. Error: invalid file format", "success"=>false];
+            }
+            
+            $new_profile_pic = time().rand(1,100000).'.'.$ext;
+
+            move_uploaded_file($_FILES['profile_pic']['tmp_name'], '../uploads/'.$new_profile_pic);
+
+            if(file_exists("../uploads/$record[0]")){
+                unlink("../uploads/$record[0]");
+            }
+        }
+
         // print_r($gender);
 
-        // die;
         $created_at = date('Y-m-d h:m');
 
         if($full_name==''||$email==''||$pnumber==''||$gender==''){
@@ -26,7 +50,7 @@
         }
 
         // $query = "INSERT INTO `signup_subs` (`full_name`, `email`, `pnumber`, `gender`,`created_at`) VALUES ('$full_name', '$email', '$pnumber', '$gender','$created_at')";
-        $query = "UPDATE `signup_subs` SET `full_name`='$full_name', `email`='$email', `pnumber`='$pnumber', `gender`='$gender' WHERE `id`='$id'";
+        $query = "UPDATE `signup_subs` SET `full_name`='$full_name', `email`='$email', `pnumber`='$pnumber', `gender`='$gender' , `profile_pic`='$new_profile_pic', `subjects`='$subjects', `teacher_id`='$teacher_id' WHERE `id`='$id'";
 
         if(mysqli_query($conn, $query)){
             $response = ['msg'=> "Data Updated Successfully", "success"=>true];

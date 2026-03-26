@@ -78,7 +78,7 @@ include "./partials/header.php";
 
             if (isset($_GET['fullName'])) {
                 $fullname = $_GET['fullName'];
-                $query .= " WHERE s.full_name LIKE '%$fullname%'";
+                $query .= " WHERE s.full_name LIKE '%$fullname%' OR t.tname LIKE  '%$fullname%'";
             }
 
             $query .= " ORDER BY stdID DESC";
