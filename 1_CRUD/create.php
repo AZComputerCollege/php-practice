@@ -77,19 +77,22 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                     <input type="file" name="profile_pic" class="form-control">
                 </div>
                 <?php
-                     if($_GET['id'] && $student['profile_pic']){
-                        ?>
-                    <div>
-                        <img src="./uploads/<?php echo $student['profile_pic'] ?>" alt="IMAGE" width="70">
-                    </div>
-
-                        <?php
-                     }
+                    if(isset($student)){
+                        $filePath = './uploads/'.$student['profile_pic'];
+                        if($_GET['id'] && $student['profile_pic'] && file_exists($filePath)){
+                           ?>
+                       <div>
+                           <img src="./uploads/<?php echo $student['profile_pic'] ?>" alt="IMAGE" width="70">
+                       </div>
+   
+                           <?php
+                        }
+                    }
                 ?>
 
 
                 <?php
-                    if($student['subjects']){
+                    if(isset($student)&&$student['subjects']){
                         $subjects = explode(',',$student['subjects']);
                     }
                 ?>
@@ -127,13 +130,18 @@ if (isset($_GET['id']) && $_GET['id'] != "") {
                         while ($teacher = mysqli_fetch_assoc($sql)) {
                             // print_r($teacher);
                         ?>
-                            <option value="<?php echo $teacher['id'] ?>"   <?php echo $student['teacher_id']==$teacher['id'] ?'Selected':''?>>
+                            <option value="<?php echo $teacher['id'] ?>"   <?php echo (isset($student['teacher_id'])&&$student['teacher_id']==$teacher['id']) ?'Selected':''?>>
                                 <?php echo $teacher['tname'] ?>
                             </option>
                         <?php
                         }
                         ?>
                     </select>
+                </div>
+
+                <div>
+                    <label for="">Gallary</label>
+                    <input type="file" name="gallary[]" class="form-control" multiple>
                 </div>
 
 
