@@ -1,6 +1,27 @@
 <?php
 include "./handler/connection.php";
 include "./partials/header.php";
+    $page = isset($_GET['page'])?$_GET['page']:"1";
+    // page = 2;
+    $limit = 10;
+
+
+    /*
+    query => no of rows = 1000;
+    limit = 10;
+    no of pages = 1000/10;
+    no of pages = 100;
+    loop 1 to no of pages
+
+
+    */
+
+    
+
+    // p1 = 1-10;
+    // p2=11-20;
+    // p3= 21-30;
+
 ?>
 
 <style>
@@ -81,7 +102,7 @@ include "./partials/header.php";
                 $query .= " WHERE s.full_name LIKE '%$fullname%' OR t.tname LIKE  '%$fullname%'";
             }
 
-            $query .= " ORDER BY stdID DESC";
+            $query .= " ORDER BY stdID DESC LIMIT $limit";
             $mysql = mysqli_query($conn, $query);
 
             $count = mysqli_num_rows($mysql);
