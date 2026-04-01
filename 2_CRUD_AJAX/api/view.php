@@ -1,7 +1,16 @@
 <?php
     require "./conn.php";
     
-    $query = "SELECT * FROM product";
+
+    // AS = alias
+
+    $query = "SELECT 
+    p.*,
+    cat.cname As category_name,
+    subcat.cname As subcategory_name 
+    FROM product As p INNER JOIN category As cat ON p.category_id=cat.id LEFT JOIN category As subcat ON p.subcategory_id = subcat.id";
+
+
     $sql = mysqli_query($conn, $query);
     
     $records = mysqli_fetch_all($sql, MYSQLI_ASSOC);

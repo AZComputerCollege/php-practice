@@ -15,6 +15,12 @@
 <body>
 	<div class="container">
 		<h1 class="text-center my-3 text-primary fw-bold">Product CRUD</h1>
+		<div class="d-flex justify-content-end my-4 mx-2">
+			<button class="btn btn-primary" data-bs-toggle="modal"
+			data-bs-target="#productModal" >
+				Create
+			</button>
+		</div>
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
@@ -41,6 +47,60 @@
 		</div>
 	</div>
 
+
+
+
+	<!-- Modals -->
+	<div class="modal fade"
+		 id="productModal"
+		 tabindex="-1"
+		 aria-labelledby="productModalLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5"
+						id="productModalLabel">Create Product</h1>
+					<button type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="category"
+								   class="col-form-label">Category:</label>
+							<select name="category" id="productCats" class="form-select" >
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="subcategory"
+								   class="col-form-label">Subcategory:</label>
+							<select name="subcategory" id="productSubcats" class="form-select" >
+							</select>
+						</div>
+
+
+						<div class="mb-3">
+							<label for="message-text"
+								   class="col-form-label">Message:</label>
+							<textarea class="form-control"
+									  id="message-text"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button"
+							class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+					<button type="button"
+							class="btn btn-primary">Send message</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 			integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
 			crossorigin="anonymous"></script>
@@ -48,7 +108,9 @@
 			integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 			crossorigin="anonymous"></script>
 
-	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+			integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+			crossorigin="anonymous"></script>
 
 	<script src="https://php-classes.test/2_CRUD_AJAX/script.js"></script>
 </body>
