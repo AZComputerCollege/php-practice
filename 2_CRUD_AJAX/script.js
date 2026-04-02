@@ -75,9 +75,54 @@ $('#productModal').on('shown.bs.modal', function () {
 });
 
 
-$("#productCats").on("change",function(){
+$("#productCats").on("change", function () {
     let category_id = $("#productCats").val();
     console.log(category_id);
+    $.ajax({
+        url: api_url + "/fetch-data.php",
+        method: "GET",
+        data: { "a": "fetchSubcategory", "cat_id": category_id },
+        success: function (res) {
+            let response = JSON.parse(res);
+            // console.log(response);
+            if (response.status == 200) {
+                let html = '<option value="">Select Subcategory</option>';
+                response.data.forEach(category => {
+                    html += `
+                        <option value="${category.id}">${category.cname}</option>
+                    `;
+                });
 
+                $("#productSubcats").html(html);
+            }
+        }
+    });
 })
 
+
+$("#psubmit").on("click", function (e) {
+    e.preventDefault();
+
+    let form = document.querySelector("#productForm");
+    let formData = new FormData(form);
+    $.ajax({
+        url: api_url + "/create.php",
+        method: "POST",
+        data: formData,
+        contentType:false,
+        processData: false,  
+        success: function (res) {
+            console.log(res);
+            let response = JSON.parse(res);
+            // console.log(response);
+            if (response.status == 200) {
+               $("#productForm")[0].reset();
+                $("#productModal").modal("hide");
+                fetchAllData();
+
+                
+            }
+        }
+    });
+
+});

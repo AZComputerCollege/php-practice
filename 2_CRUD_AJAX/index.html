@@ -16,8 +16,9 @@
 	<div class="container">
 		<h1 class="text-center my-3 text-primary fw-bold">Product CRUD</h1>
 		<div class="d-flex justify-content-end my-4 mx-2">
-			<button class="btn btn-primary" data-bs-toggle="modal"
-			data-bs-target="#productModal" >
+			<button class="btn btn-primary"
+					data-bs-toggle="modal"
+					data-bs-target="#productModal">
 				Create
 			</button>
 		</div>
@@ -67,35 +68,91 @@
 							aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form>
+					<form id="productForm">
 						<div class="mb-3">
 							<label for="category"
 								   class="col-form-label">Category:</label>
-							<select name="category" id="productCats" class="form-select" >
+							<select name="category"
+									id="productCats"
+									class="form-select">
 							</select>
 						</div>
 						<div class="mb-3">
 							<label for="subcategory"
 								   class="col-form-label">Subcategory:</label>
-							<select name="subcategory" id="productSubcats" class="form-select" >
+							<select name="subcategory"
+									id="productSubcats"
+									class="form-select">
 							</select>
 						</div>
 
+						<div class="mb-3">
+							<label for="">Product Name</label>
+							<input type="text"
+								   name="pname"
+								   id="pname"
+								   class="form-control">
+						</div>
+						<div class="mb-3">
+							<label for="description"
+								   class="col-form-label">Description:</label>
+							<textarea class="form-control"
+									  name="pdescription"
+									  id="pdescription"></textarea>
+						</div>
 
 						<div class="mb-3">
-							<label for="message-text"
-								   class="col-form-label">Message:</label>
-							<textarea class="form-control"
-									  id="message-text"></textarea>
+							<label for="">Purchase Price</label>
+							<input type="text"
+								   name="p_price"
+								   id="p_price"
+								   class="form-control">
 						</div>
+
+						<div class="mb-3">
+							<label for="">Sale Price</label>
+							<input type="text"
+								   name="s_price"
+								   id="s_price"
+								   class="form-control">
+						</div>
+
+						<div class="mb-3">
+							<label for="">Tax (%)</label>
+							<input type="text"
+								   name="tax"
+								   id="tax"
+								   class="form-control">
+						</div>
+
+						<div class="mb-3">
+							<label for="">QTY</label>
+							<input type="number"
+								   max="100"
+								   min="0"
+								   name="qty"
+								   id="qty"
+								   class="form-control">
+						</div>
+
+						<div class="mb-3">
+							<label for="">Thumbnail</label>
+							<input type="file"
+								   name="thumbnail"
+								   id="thumbnail"
+								   class="form-control">
+						</div>
+
+
+
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button"
 							class="btn btn-secondary"
 							data-bs-dismiss="modal">Close</button>
-					<button type="button"
-							class="btn btn-primary">Send message</button>
+					<button type="button" id="psubmit"
+							class="btn btn-primary">Submit</button>
 				</div>
 			</div>
 		</div>
