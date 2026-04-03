@@ -5,8 +5,9 @@ if (isset($_POST)) {
     if ($_POST['category'] == "" || $_POST['pname'] == "" || $_POST['pdescription'] == "" || $_POST['p_price'] == "" || $_POST['s_price'] == "" || $_POST['tax'] == "" || $_POST['qty'] == "") {
         echo json_encode(["status" => 403, "Message" => "Please fillout all fields"], 403);
     } else {
+            $subcategory= (isset($_POST['subcategory']) && ($_POST['subcategory']!=""))?$_POST['subcategory']:NULL;
 
-        // $pname = mysqli_real_escape_string($conn, $_POST['pname']);
+            $subcategoryValue = is_null($subcategory) ? "NULL" : "'$subcategory'";
 
         if (isset($_FILES['thumbnail'])) {
             $image = $_FILES['thumbnail']['name'];
@@ -18,7 +19,7 @@ if (isset($_POST)) {
                 (category_id, subcategory_id, pname, pdescription, p_price, s_price, tax, qty, thumbnail) 
                 VALUES (
                     '{$_POST['category']}',
-                    '{$_POST['subcategory']}',
+                    $subcategoryValue,
                     '{$_POST['pname']}',
                     '{$_POST['pdescription']}',
                     '{$_POST['p_price']}',
