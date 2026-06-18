@@ -1,0 +1,11 @@
+OOP Sylabus
+
+- Basic Concepts
+- Inheritance
+- Encapsulation
+- Abstraction
+- Polymorphism-> Interfaces
+- Traits
+- Static Methods
+- Getter/Setter
+- CRUD
