@@ -1,5 +1,7 @@
 <?php
-    class connection{
+    namespace OOP\Connection;
+
+    class Connection{
         private $server = "localhost";
         private $user = "root";
         private $password = "";
