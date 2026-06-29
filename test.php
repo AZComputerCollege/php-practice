@@ -3,4 +3,7 @@
 
 
      echo 2+2;
+
+
+     echo "Ok to have here";
 ?>
